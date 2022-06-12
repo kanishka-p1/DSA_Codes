@@ -46,6 +46,10 @@ void prims(int** edges, int n) {
             cout << i << " " << parent[i] << " " << weights[i] << endl;
         }
     }
+    
+    delete [] parent;
+    delete [] weights;
+    delete [] visited;
 }
 
 int main() {
