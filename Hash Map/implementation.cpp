@@ -47,7 +47,7 @@ class ourmap {
 	}
 
 	V getValue(string key) {
-		int bucketIndex = getBucketIndex(string key);
+		int bucketIndex = getBucketIndex(key);
 		MapNode<V>* head = buckets[bucketIndex];
 		while (head != NULL) {
 			if (head->key == key) {
@@ -75,7 +75,7 @@ class ourmap {
 
 	public:
 	void insert(string key, V value) {
-		int bucketIndex = getBucketIndex(string key);
+		int bucketIndex = getBucketIndex(key);
 		MapNode<V>* head = buckets[bucketIndex];
 		while (head != NULL) {
 			if (head->key == key) {
@@ -92,7 +92,7 @@ class ourmap {
 	}
 
 	V remove(string key) {
-		int bucketIndex = getBucketIndex(string key);
+		int bucketIndex = getBucketIndex(key);
 		MapNode<V>* head = buckets[bucketIndex];
 		MapNode<V>* prev = NULL;
 		while (head != NULL) {
