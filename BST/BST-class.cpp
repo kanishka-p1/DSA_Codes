@@ -20,7 +20,7 @@
 
 class BST {
     // Define the data members
-  BinaryTreeNode<int>* root;
+	BinaryTreeNode<int>* root;
    public:
     BST() { 
         // Implement the Constructor
@@ -34,6 +34,50 @@ class BST {
 	/*----------------- Public Functions of BST -----------------*/
 
   private:
+  BinaryTreeNode<int>* remove(BinaryTreeNode<int>* root, int data) {
+    if(root == NULL) {
+      return NULL;
+    }
+		
+		if(data > root->data) {
+			root->right = remove(root->right, data);
+			return root;
+		}
+		else if(data < root->data) {
+			root->left = remove(root->left, data);
+			return root;
+		}
+		else {
+			if(root->left == NULL && root->right == NULL) {
+				delete root;
+				return NULL;
+			}
+			else if(node->left == NULL) {
+				BinaryTreeNode<int>* temp = root->right;
+				root->right = NULL;
+				delete root;
+				return temp;
+			}
+			else if(node->right == NULL) {
+				BinaryTreeNode<int>* temp = root->left;
+				root->left = NULL;
+				delete root;
+				return temp;
+			}
+			else {
+				BinaryTreeNode<int>* minNode = root->right;
+				
+				while(minNode->left != NULL) {
+					minNode = minNode->left;
+				}
+				
+				int RightMin = minNode->data;
+				root->data = rightMin;
+				root->right = remove(root->right, rightMin);
+			}
+		}
+	}
+	
   void print(BinaryTreeNode<int>* root) {
     if(root == NULL) {
       return;
