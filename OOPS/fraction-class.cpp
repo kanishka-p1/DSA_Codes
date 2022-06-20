@@ -29,7 +29,7 @@ class Fraction {
     den = den / gcd;
   }
   
-  void add(Fraction f2) {
+  void add(Fraction const &f2) {
     int lcm = den * f2.den;
     int x = lcm / den;
     int y = lcm / f2.den;
@@ -41,6 +41,13 @@ class Fraction {
     simplify();
   }
   
+  void multiply(Fraction const &f2) {
+    num = num * f2.num;
+    den = den * f2.den;
+    
+    simplify();
+  }
+  
 };
 
 int main() {
@@ -48,6 +55,11 @@ int main() {
   Fraction f2(15, 4);
   
   f1.add(f2);
+  
+  f1.print();
+  f2.print();
+  
+  f1.multipy(f2);
   
   f1.print();
   f2.print();
