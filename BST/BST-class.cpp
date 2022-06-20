@@ -52,13 +52,13 @@ class BST {
 				delete root;
 				return NULL;
 			}
-			else if(node->left == NULL) {
+			else if(root->left == NULL) {
 				BinaryTreeNode<int>* temp = root->right;
 				root->right = NULL;
 				delete root;
 				return temp;
 			}
-			else if(node->right == NULL) {
+			else if(root->right == NULL) {
 				BinaryTreeNode<int>* temp = root->left;
 				root->left = NULL;
 				delete root;
@@ -71,7 +71,7 @@ class BST {
 					minNode = minNode->left;
 				}
 				
-				int RightMin = minNode->data;
+				int rightMin = minNode->data;
 				root->data = rightMin;
 				root->right = remove(root->right, rightMin);
 			}
