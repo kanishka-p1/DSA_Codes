@@ -89,11 +89,44 @@ class Fraction {
     simplify();
   }
   
+  //pre-increment
+  Fraction& operator++() {
+    num = num + den;
+    simplify();
+    
+    return *this;
+  }
+  
+  //post-increment (doesn't support nesting)
+  Fraction operator++(int) {
+    Fraction fnew(num, den);
+    num = num + den;
+    simplify();
+    fnew.simplify();
+    return fnew;
+  }
+  
+  Fraction& operator+=(Fraction const &f2) {
+    int lcm = den * f2.den;
+    int x = lcm / den;
+    int y = lcm / f2.den;
+    int numerator = x * num + (y * f2.num);
+    num = numerator;
+    den = lcm;
+    simplify();
+    
+    return *this;
+  }
+  
 };
 
 int main() {
   Fraction f1(10, 2); 
   Fraction f2(15, 4);
+  
+  f1 += f2;
+  f1.print();
+  f2.print();
   
   //f1.add(f2);
   //f1.print();
@@ -102,6 +135,7 @@ int main() {
   //f1.print();
   //f2.print();
   
+  /*
   Fraction f3 = f1.add(f2);
   Fraction f4 = f1 + f2;
   f1.print();
@@ -118,4 +152,15 @@ int main() {
   else {
     cout << "not equal" << endl;
   }
+  */
+ 
+  //f1.print();
+  //++f1;
+  //f1.print();
+  /*Fraction f3 = ++f1;
+  f1.print();
+  f3.print();*/
+  /*Fraction f3 = ++(++f1);
+  f1.print();
+  f3.print();*/
 }
