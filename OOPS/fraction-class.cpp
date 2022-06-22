@@ -30,7 +30,7 @@ class Fraction {
     den = d;
   }
   
-  void print() {
+  void print() const {
     cout << num << "/" << den << endl;
   }
   
