@@ -13,6 +13,23 @@ class Fraction {
     this->den = den;
   }
   
+  int getNum() {
+    return num;
+  }
+  
+  int getDen() {
+    return Den;
+  }
+  
+  void setNum(int n) {
+    num = n;
+  }
+  
+  
+  void setDen(int d) {
+    den = d;
+  }
+  
   void print() {
     cout << num << "/" << den << endl;
   }
