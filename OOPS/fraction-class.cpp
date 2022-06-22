@@ -13,11 +13,11 @@ class Fraction {
     this->den = den;
   }
   
-  int getNum() {
+  int getNum() const {
     return num;
   }
   
-  int getDen() {
+  int getDen() const {
     return Den;
   }
   
