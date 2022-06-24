@@ -24,18 +24,17 @@ void print(Node* head) {
 Node* input() {
 	int data;
 	cin >> data;
+	Node* temp = NULL;
 	Node* head = NULL;
 	while(data != -1) {
 		Node* n = new Node(data);
 		if(head == NULL) {
 			head = n;
+			temp = n;
 		}
-		else {
-			Node* temp = head;
-			while(temp->next != NULL) {			
-				temp = temp->next;
-			}
+		else {			
 			temp->next = n;
+			temp = temp->next;
 		}
 		cin >> data;
 	}
