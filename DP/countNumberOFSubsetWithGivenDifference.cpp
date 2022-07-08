@@ -39,7 +39,7 @@ int countSubs(vector<int>& nums, int diff) {
   //eq1 + eq2 will give us
   //s1 = (diff + sum(nums)) / 2
   
-  x = (diff + sum) / 2;
+  int x = (diff + sum) / 2;
   
   return subsetSum(nums, n, x);
 }  
