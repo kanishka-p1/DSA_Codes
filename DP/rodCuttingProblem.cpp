@@ -1,4 +1,4 @@
-int unbounded(int len[], int price[], int n) {
+int rodCutting(int len[], int price[], int n) {
   t[n + 1][n + 1];
   
   for(int i = 0; i < n + 1; i++) {
