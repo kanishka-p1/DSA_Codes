@@ -70,3 +70,39 @@ Explanation 1:
  */
 
 //                                                                         ANSWER
+
+
+/**
+ * Definition for undirected graph.
+ * struct UndirectedGraphNode {
+ *     int label;
+ *     vector<UndirectedGraphNode *> neighbors;
+ *     UndirectedGraphNode(int x) : label(x) {};
+ * };
+ */
+ 
+UndirectedGraphNode* dfs(UndirectedGraphNode* node, unordered_map<int, UndirectedGraphNode*>& visited) {
+    UndirectedGraphNode* d = new UndirectedGraphNode(node->label);
+    visited[node->label] = d;
+    
+    for(int i = 0; i < node->neighbors.size(); i++) {
+        if(visited.find(node->neighbors[i]->label) == visited.end()) {
+            UndirectedGraphNode* f = dfs(node->neighbors[i], visited);
+            d->neighbors.push_back(f);
+        }
+        else {
+            d->neighbors.push_back(visited.find(node->neighbors[i]->label)->second);
+        }
+    }
+    
+    return d;
+}
+
+UndirectedGraphNode *Solution::cloneGraph(UndirectedGraphNode *node) {
+    if(node == NULL) {
+        return NULL;
+    }
+    
+    unordered_map<int, UndirectedGraphNode*> visited;
+    return dfs(node, visited);
+}
