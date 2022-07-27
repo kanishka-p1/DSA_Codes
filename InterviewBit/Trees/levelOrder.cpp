@@ -78,12 +78,8 @@ vector<vector<int>> Solution::levelOrder(TreeNode* A) {
     }
     
     res.push_back(A->val);
-    
-    
     q.push(A);
     v.push_back(res);
-    
-    long long int maxNode = 1;
     
     while(q.empty()!=true){
         vector<int> temp;
