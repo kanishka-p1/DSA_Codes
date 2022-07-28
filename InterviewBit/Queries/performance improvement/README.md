@@ -2,7 +2,7 @@ You are given a table having the marks of one student in every test (Tests are h
 You have to output the tests in which the student has improved his performance. 
 For a student to improve his performance he has to score more than the previous test. 
 
-Table : Tests 
+Table : Tests <br />
 ![image](https://user-images.githubusercontent.com/92727668/181509334-868e0fc4-8b86-4406-86c0-68ff9ace3974.png)
 
 
