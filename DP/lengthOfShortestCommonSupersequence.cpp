@@ -20,7 +20,7 @@ int superSequence(string text1, string text2, int m, int n) {
             }
         }
         
-        return m + n + dp[m][n];
+        return m + n - dp[m][n];
     }
     
     int longestCommonSubsequence(string text1, string text2) {
