@@ -41,6 +41,7 @@ Output 3:
 
 //                                                                          ANSWER
 
+//approach1
 string Solution::solve(string A) {
     reverse(A.begin(), A.end());
     int l = 0, r = 0, i = 0, n = A.size();
@@ -67,3 +68,37 @@ string Solution::solve(string A) {
     
     return A;    
 }
+
+
+//approach2
+string reverseWords(string s) {
+        if(s.size() == 0) {
+        return s;        
+    }
+    
+    stack<string> st;
+    string ans;
+    
+    for(int i = 0; i < s.size(); i++) {
+        string word;
+        if(s[i] == ' ') {
+            continue;
+        }
+        while(i < s.size() && s[i] != ' ' ) {
+            word += s[i]; 
+            i++;
+        }
+        st.push(word);
+        
+    }
+        
+    while(!st.empty()) {
+        ans += st.top(); 
+        st.pop();
+        if(!st.empty()) {
+          ans += " ";  
+        } 
+    }
+    
+    return ans;
+    }
