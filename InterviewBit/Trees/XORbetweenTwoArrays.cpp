@@ -57,57 +57,60 @@ int Solution::solve(vector<int> &A, vector<int> &B) {
     
     vector<int> v1, v2;
     
-    int maxi=1;
+    int maxi = 1;
     
-    while(maxi<<1 <= A[n-1])maxi=maxi<<1;
-    while(maxi<<1 <= B[m-1])maxi=maxi<<1;
+    while(maxi<<1 <= A[n-1])maxi = maxi<<1;
+    while(maxi<<1 <= B[m-1])maxi = maxi<<1;
     
-    for(int i=n-1;i>=0;i--){
-        if(A[i]>=maxi) {
+    for(int i = n - 1; i >= 0; i--){
+        if(A[i] >= maxi) {
             v1.push_back(A[i]);
         }
     }
     
-    for(int j=m-1;j>=0;j--){
-        if(B[j]>=maxi)v2.push_back(B[j]);
+    for(int j = m - 1; j >= 0; j--){
+        if(B[j] >= maxi){
+            v2.push_back(B[j]);            
+        }
     }
     
-    int ans=0;
+    int ans = 0;
     
-    for(auto i: v1){
-        int target=(maxi-1)-(i-maxi);
-        auto it= lower_bound(B.begin(),B.end(),target);
-        auto jt=it;
-        if(it!=B.end()){
-            ans=max(ans,i^(*it));
+    for(auto i : v1){
+        int target = (maxi - 1) - (i - maxi);
+        auto it = lower_bound(B.begin(), B.end(), target);
+        auto jt = it;
+        if(it != B.end()){
+            ans = max(ans, i ^ (*it));
             ++it;
-            if(it!=B.end()){
-                ans=max(ans,i^(*it));
+            if(it != B.end()){
+                ans = max(ans, i ^ (*it));
             }
         }
-        if(jt!=B.begin()){
+        if(jt != B.begin()){
             --jt;
-            ans=max(ans,i^(*jt));
+            ans = max(ans, i ^ (*jt));
         }
     }
     
-    for(auto i: v2){
-        int target=(maxi-1)-(i-maxi);
-        auto it= lower_bound(A.begin(),A.end(),target);
-        auto jt=it;
+    for(auto i : v2){
+        int target = (maxi - 1) - (i - maxi);
+        auto it = lower_bound(A.begin(), A.end(), target);
+        auto jt = it;
         
-        if(it!=A.end()){
-            ans=max(ans,i^(*it));
+        if(it != A.end()){
+            ans = max(ans, i ^ (*it));
             ++it;
-            if(it!=A.end()){
-                ans=max(ans,i^(*it));
+            if(it != A.end()){
+                ans = max(ans, i ^ (*it));
             }
         }
-        if(jt!=A.begin()){
+        if(jt != A.begin()){
             --jt;
-            ans=max(ans,i^(*jt));
+            ans=max(ans, i ^ (*jt));
         }
     }
     
     return ans;
 }
+
