@@ -54,11 +54,22 @@ Explanation 2:
 //                                                                            ANSWER
 
 
+//approach 1
 int Solution::solve(int A) {
     int ans = 0;
     while(A % 2 == 0) {
         ans++;
         A /= 2; 
+    }
+    return ans;
+}
+
+//approach 2
+int Solution::solve(int A) {
+    int ans = 0;
+    while((A & 1) == 0) {
+        A = A >> 1;
+        ans++;
     }
     return ans;
 }
