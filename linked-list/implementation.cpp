@@ -14,7 +14,7 @@ class Node {
 
 void print(Node* head) {
 	Node* temp = head;
-	while(!temp != NULL) {
+	while(temp != NULL) {
 		cout << temp->data << " ";
 		temp = temp->next;
 	}
