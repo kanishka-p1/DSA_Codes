@@ -37,30 +37,30 @@ Output 2:
 //                                                                              ANSWER
 
 // minimum insertions to make string palindrome
-// int lcs(string a, string b, int m, int n) {
-//     vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+int lcs(string a, string b, int m, int n) {
+     vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
     
-//     for(int i = 1; i <= m; i++) {
-//         for(int j = 1; j <= n; j++) {
-//             if(a[i - 1] == b[j - 1]) {
-//                 dp[i][j] = 1 + dp[i - 1][j - 1];
-//             }
-//             else {
-//                 dp[i][j] = max(dp[i][j - 1], dp[i - 1][j]);
-//             }
-//         }
-//     }
-//     return dp[m][n];
-// }
+     for(int i = 1; i <= m; i++) {
+         for(int j = 1; j <= n; j++) {
+             if(a[i - 1] == b[j - 1]) {
+                 dp[i][j] = 1 + dp[i - 1][j - 1];
+             }
+             else {
+                 dp[i][j] = max(dp[i][j - 1], dp[i - 1][j]);
+             }
+         }
+     }
+     return dp[m][n];
+ }
 
-// int Solution::solve(string A) {
-//     int n = A.length();
-//     string str = A;
-//     reverse(str.begin(), str.end());
+ int Solution::solve(string A) {
+     int n = A.length();
+     string str = A;
+     reverse(str.begin(), str.end());
     
-//     int ans = n - lcs(A, str, n, n);
-//     return ans;
-// }
+     int ans = n - lcs(A, str, n, n);
+     return ans;
+ }
 
 
 //minimum insertions in front to make string palindrome
