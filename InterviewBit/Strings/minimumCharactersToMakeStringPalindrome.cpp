@@ -36,6 +36,7 @@ Output 2:
 
 //                                                                              ANSWER
 
+// minimum insertions to make string palindrome
 // int lcs(string a, string b, int m, int n) {
 //     vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
     
@@ -62,6 +63,7 @@ Output 2:
 // }
 
 
+//minimum insertions in front to make string palindrome
 int computeLPS(string &B){
     int n = B.size(), j = 0;
     int lps[n]; 
