@@ -68,3 +68,79 @@ class Solution {
 };
 
 /***************************************************************** MEMOIZATION *********************************************************************************/
+
+class Solution {
+  public:
+    int solve(vector<int>& height, int n, /*vector<int>& dp*/ int*dp) {
+        if(n == 1) {
+            dp[n] = 0;
+            return 0;
+        }
+        if(n == 2) {
+            dp[n] = abs(height[1] - height[0]);
+            return dp[n];
+        }
+        if(dp[n] != -1) {
+            return dp[n];
+        }
+        
+        int x = abs(height[n - 1] - height[n - 2]) + solve(height, n - 1, dp);
+        int y = abs(height[n - 1] - height[n - 3]) + solve(height, n - 2, dp);
+        
+        dp[n] = min(x, y);
+        return dp[n];
+    }
+  
+    int minimumEnergy(vector<int>& height, int n) {
+        // Code here
+        // vector<int> dp(n, -1);
+        int *dp = new int[n + 1];
+        for(int i = 0; i < n + 1; i++) {
+            dp[i] = -1;
+        }
+        solve(height, n, dp);
+    }
+};
+
+/************************************************************************* DP **************************************************************************************/
+
+class Solution {
+  public:
+    int minimumEnergy(vector<int>& height, int n) {
+        // Code here
+        vector<int> dp(n, 0);
+        // dp[0] = 0;
+        for(int i = 1; i < n; i++) {
+            int y = INT_MAX;
+            int x = dp[i - 1] + abs(height[i] - height[i - 1]);
+            if(i > 1) {
+                y = dp[i - 2] + abs(height[i] - height[i - 2]);
+            }
+            dp[i] = min(x, y);
+        }
+        return dp[n - 1];
+    }
+};
+
+/******************************************************************** SPACE OPTIMIZATION ****************************************************************************/
+
+class Solution {
+  public:
+    int minimumEnergy(vector<int>& height, int n) {
+        // Code here
+        int curr, prev, prev2;
+        prev = abs(height[1] - height[0]);
+        prev2 = 0;
+        
+        for(int i = 2; i < n; i++) {
+            int x = prev + abs(height[i] - height[i - 1]);
+            int y = prev2 + abs(height[i] - height[i - 2]);
+            
+            curr = min(x, y);
+            prev2 = prev;
+            prev = curr;
+            
+        }
+        return prev;
+    }
+};
