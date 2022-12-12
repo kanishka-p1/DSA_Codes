@@ -79,3 +79,33 @@ class Solution {
         return count;
     }
 };
+
+/******************************************************************************** DFS ****************************************************************************/
+
+class Solution {
+  public:
+    void dfs(vector<vector<int>>& adj, int V, vector<bool>& visited, int sv) {
+        visited[sv] = true;
+        
+        for(int i = 0; i < V; i++) {
+            if(!visited[i] && i != sv && adj[i][sv] == 1) {
+                dfs(adj, V, visited, i);
+            }
+        }
+    }
+  
+    int numProvinces(vector<vector<int>> adj, int V) {
+        // code here
+        int count = 0;
+        vector<bool> visited(V, false);
+        
+        for(int i = 0; i < V; i++) {
+            if(!visited[i]) {
+                dfs(adj, V, visited, i);
+                count++;
+            }
+        }
+        
+        return count;
+    }
+};
