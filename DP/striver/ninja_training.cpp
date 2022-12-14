@@ -95,8 +95,8 @@ class Solution {
   
     int maximumPoints(vector<vector<int>>& points, int n) {
         // Code here
-        vector<vector<int>> dp(n, vector<int>(n + 1, -1));
-        return helper(n - 1, n, points, dp);
+        vector<vector<int>> dp(n, vector<int>(4, -1));
+        return helper(n - 1, 3, points, dp);
     }
 };
 
