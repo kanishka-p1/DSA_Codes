@@ -40,9 +40,10 @@ n == image[i].length
 class Solution {
 public:
     void dfs(vector<vector<int>>& image, int sr, int sc, int color, int initialcolor) {
+     //checking for the conditions if it's not out of bound and if the element is same as initial color we will update that element's color
         if(sr >= 0 && sc >= 0 && sr < image.size() && sc < image[0].size() && image[sr][sc] == initialcolor) {
-            image[sr][sc] = color;
-            dfs(image, sr - 1, sc, color, initialcolor);
+            image[sr][sc] = color; //updating current element's color
+            dfs(image, sr - 1, sc, color, initialcolor); //dfs call in all four directions
             dfs(image, sr, sc + 1, color, initialcolor);
             dfs(image, sr, sc - 1, color, initialcolor);
             dfs(image, sr + 1, sc, color, initialcolor);
@@ -50,12 +51,15 @@ public:
     }
 
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+     //store the initial color
         int initialcolor = image[sr][sc];
 
+     //if the source is already same as the color we will simply return the image
         if(initialcolor == color) {
             return image;
         }
 
+     //we will call dfs of all the directions
         dfs(image, sr, sc, color, initialcolor);
         return image;
     }
@@ -63,5 +67,43 @@ public:
 
 /**************************************************************************** BFS ************************************************************************************/
 
+class Solution {
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int m = image.size();
+        int n = image[0].size();
 
+     //if amage array only conists of a single row or column or is empty
+        if(m == 0 || n == 0) {
+            return image;
+        }
 
+     //creatig a queue to store all the elements which needs to be changed
+        queue<pair<int, int>> q;
+        int initialcolor = image[sr][sc]; //storing the initial color
+        if(initialcolor == color) {
+            return image;  // if the initial color is same as the color that needs to be changed
+        }
+        q.push({sr, sc}); 
+
+        while(!q.empty()) {
+            int i = q.front().first;
+            int j = q.front().second;
+            image[i][j] = color;  //updating color of current element
+            q.pop();
+
+            int dir[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};   //direction array for all four directions
+
+            for(int k = 0; k < 4; k++) {
+                int x = i + dir[k][0];
+                int y = j + dir[k][1];
+                if(x >= 0 && y >= 0 && x < m && y < n && image[x][y] == initialcolor) {
+                    q.push({x, y});
+                }
+            }
+        }
+
+        return image;
+
+    }
+};
