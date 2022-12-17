@@ -79,3 +79,41 @@ class Solution {
         return false;
     }
 };
+
+/********************************************************************************* DFS *******************************************************************************/
+
+class Solution {
+  public:
+    // Function to detect cycle in an undirected graph.
+    bool detect(int s, int parent, vector<int> adj[], vector<bool>& visited) {
+        visited[s] = true;
+        
+        for(auto it : adj[s]) {
+            if(!visited[it]) {
+                if(detect(it, s, adj, visited)) {
+                    return true;
+                }
+            }
+            else if(it != parent) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    bool isCycle(int V, vector<int> adj[]) {
+        // Code here
+        vector<bool> visited(V, false);
+        
+        for(int i = 0; i < V; i++) {
+            if(!visited[i]) {
+                if(detect(i, -1, adj, visited)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
