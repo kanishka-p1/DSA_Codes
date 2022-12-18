@@ -130,4 +130,54 @@ class Solution {
 
 /****************************************************************************** DP **********************************************************************************/
 
-
+class Solution {
+  public:
+    int solve(int m, int n, vector<vector<int>>& grid) {
+        // code here
+        vector<vector<vector<int>>> dp(m, vector<vector<int>>(n, vector<int>(n, 0)));
+        
+        for(int j1 = 0; j1 < n; j1++) {
+            for(int j2 = 0; j2 < n; j2++) {
+                if(j1 == j2) {
+                    dp[m - 1][j1][j2] = grid[m - 1][j1];
+                }
+                else {
+                    dp[m - 1][j1][j2] = grid[m - 1][j1] + grid[m - 1][j2];
+                }
+            }
+        }
+        
+        for(int i = m - 2; i >= 0; i--) {
+            for(int j1 = 0; j1 < n; j1++) {
+                for(int j2 = 0; j2 < n; j2++) {
+                    int ans = INT_MIN;
+                    
+                    for(int s1 = -1; s1 <= 1; s1++) {
+                        for(int s2 = -1; s2 <= 1; s2++) {
+                            int temp;
+                            if(j1 == j2) {
+                                temp = grid[i][j1];
+                            }
+                            else {
+                                temp = grid[i][j1] + grid[i][j2];
+                            }
+                            
+                            if(j1 + s1 < 0 || j1 + s1 >= n || j2 + s2 < 0 || j2 + s2 >= n) {
+                                temp += -1e9;
+                            }
+                            else {
+                                temp += dp[i + 1][j1 + s1][j2 + s2];
+                            }
+                            
+                            ans = max(ans, temp);
+                        }
+                    }
+                    
+                    dp[i][j1][j2] = ans;
+                }
+            }
+        }
+        
+        return dp[0][0][n - 1];
+    }
+};
