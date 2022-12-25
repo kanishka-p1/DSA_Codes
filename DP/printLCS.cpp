@@ -33,6 +33,7 @@ string findlcs(string s1, string s2, int n, int m) {
     }
   }
   
+  reverse(res.begin(), res.end());
   return res;
 }
 
