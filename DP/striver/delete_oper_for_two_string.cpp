@@ -47,3 +47,33 @@ public:
         return (m - dp[m][n]) + (n - dp[m][n]);
     }
 };
+
+
+//SPACE OPTIMIZATION
+
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int m = word1.length();
+        int n = word2.length();
+
+        vector<int> prev(n + 1, 0), curr(n + 1, 0);
+
+        for(int i = 1; i <= m; i++) {
+            for(int j = 1; j <= n; j++) {
+                if(word1[i - 1] == word2[j - 1]) {
+                    curr[j] = 1 + prev[j - 1];
+                }
+                else {
+                    curr[j] = max(prev[j], curr[j - 1]);
+                }
+            }
+            prev = curr;
+        }
+
+        return (m - prev[n]) + (n - prev[n]);
+    }
+};
+
+//rather than having a whole dp array we are only using the curr and prev rows for our code so we will only maintain a prev and a curr row vector
+//we will replace dp[i - 1] with prev and dp[i] with curr and update the prev to our curr after the loop so our curr will serve as prev for next iteration
