@@ -146,3 +146,27 @@ public:
         return ahead[1];
     }
 };
+
+
+// using variables
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        // vector<vector<int>> dp(n + 1, vector<int>(2, 0));
+        // vector<int> ahead(2, 0), curr(2, 0);
+        int aheadbuy, aheadnotbuy, currbuy, currnotbuy;
+        aheadnotbuy = 0, aheadbuy = 0;
+        // ahead[0] = ahead[1] = 0;
+
+        for(int ind = n - 1; ind >= 0; ind--) {
+            currbuy = max(-prices[ind] + aheadnotbuy, aheadbuy);
+            currnotbuy = max(prices[ind] + aheadbuy, aheadnotbuy);
+            aheadnotbuy = currnotbuy;
+            aheadbuy = currbuy;
+        }
+
+        return aheadbuy;
+    }
+};
