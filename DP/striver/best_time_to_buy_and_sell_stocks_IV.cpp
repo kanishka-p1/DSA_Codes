@@ -137,3 +137,29 @@ public:
         return dp[0][0];
     }
 };
+
+/********************************************************************* SPACE OPTIMIZATION ****************************************************************************/
+
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        int n = prices.size();
+        vector<int> after(2*k + 1, 0);
+        vector<int> curr(2*k + 1, 0);
+
+        for(int ind = n - 1; ind >= 0; ind--) {
+            for(int trans = 2*k - 1; trans >= 0; trans--) {
+                //buy
+                if(trans % 2 == 0) {
+                    curr[trans] = max(-prices[ind] + after[trans + 1], after[trans]);
+                }
+                //sell
+                else {
+                    curr[trans] = max(prices[ind] + after[trans + 1], after[trans]);
+                }
+            }
+            after = curr;
+        }
+        return after[0];
+    }
+};
