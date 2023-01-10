@@ -84,3 +84,70 @@ public:
         return f(0, -1, nums, dp);
     }
 };
+
+/*********************************************************************************** DP ******************************************************************************/
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0)); 
+        for(int ind = n - 1; ind >= 0; ind--) {
+            for(int prevind = ind - 1; prevind >= -1; prevind--) {
+                // not take the curr element
+                int len = 0 + dp[ind + 1][prevind + 1];
+                
+                // take the curr element
+                if(prevind == -1 || nums[ind] > nums[prevind]) {
+                    len = max(len, 1 + dp[ind + 1][ind + 1]);
+                }
+                dp[ind][prevind + 1] = len;
+            }
+        }
+        return dp[0][0];
+    }
+};
+
+/********************************************************************** SPACE OPTIMIZATION ****************************************************************************/
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> next(n + 1, 0), curr(n + 1, 0); 
+        for(int ind = n - 1; ind >= 0; ind--) {
+            for(int prevind = ind - 1; prevind >= -1; prevind--) {
+                // not take the curr element
+                int len = 0 + next[prevind + 1];
+                
+                // take the curr element
+                if(prevind == -1 || nums[ind] > nums[prevind]) {
+                    len = max(len, 1 + next[ind + 1]);
+                }
+                curr[prevind + 1] = len;
+            }
+            next = curr;
+        }
+        return next[0];
+    }
+};
+
+/*************************************************************************** TABULATION ******************************************************************************/
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        int ans = 0;
+        vector<int> dp(n, 1);
+        for(int i = 0; i < n; i++) {
+            for(int prev = 0; prev < i; prev++) {
+                if(nums[prev] < nums[i]) {
+                    dp[i] = max(dp[i], 1 + dp[prev]);
+                }
+            }
+            ans = max(ans, dp[i]);
+        }
+        return ans;
+    }
+};
