@@ -230,3 +230,62 @@ public:
         return ans;
     }
 };
+
+/*********************************************** ALL TRAVERSALS (PRE, IN, POST) IN ONE ITERATION USING SINGLE STACK *************************************************/
+
+/* Tree Node
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};*/
+class Solution{
+    public:
+    vector<int> postOrder(Node* node) {
+        // code here
+        if(node == NULL) {
+            return {};
+        }
+        
+        vector<int> pre, in, post;
+        stack<pair<Node, int>> st;
+        st.push({node, 1});
+        
+        while(!st.empty()) {
+            auto it = st.top();
+            st.pop();
+            
+            // part of preorder
+            // increment 1 to 2
+            // push the left side of the tree to stack
+            if(it.second == 1) {
+                pre.push_back(it.first->val);
+                it.second++;
+                st.push(it);
+                
+                if(it.first->left != NULL) {
+                    st.push({it.first->left, 1});
+                }
+            }
+            
+            // part of inorder
+            // increment 2 to 3
+            // push the right side of the tree to stack
+            if(it.second == 2) {
+                in.push_back(it.first->val);
+                it.second++;
+                st.push(it);
+                
+                if(it.first->right != NULL) {
+                    st.push({it.first->right, 1});
+                }
+            }
+            
+            // part of postorder
+            // dont push it back again
+            else {
+                post.push_back(it.first->val);
+            }
+        }
+    }
+};
