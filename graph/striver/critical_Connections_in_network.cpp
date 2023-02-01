@@ -30,19 +30,26 @@ public:
     
     void dfs(int node, int parent, vector<int>& vis, vector<int> adj[], int tin[], int low[], vector<vector<int>>& bridges) {
         vis[node] = 1;
+     // tin and low will store the timer of the node visited
         tin[node] = low[node] = timer;
+     // for the next level of node timer will increment
         timer++;
         for(auto it : adj[node]) {
+         // we will not consider the case where the node is equal to the parent (node == adj)
             if(it == parent) {
                 continue;
             }
+         // if the adjacent node is not previously visited then we will call dfs on it and update the value of node
+         // with the minimum of lowest time of the node and the time of adjacent node
             if(vis[it] == 0) {
                 dfs(it, node, vis, adj, tin, low, bridges);
                 low[node] = min(low[it], low[node]);
+             // checking if the bridge is present or not
                 if(low[it] > tin[node]) {
                     bridges.push_back({it, node});
                 }
             }
+         // we will just update the time of the node if bridge is not there
             else {
                 low[node] = min(low[node], low[it]);
             }
