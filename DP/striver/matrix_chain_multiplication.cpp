@@ -45,5 +45,77 @@ Constraints:
 1 ≤ arr[i] ≤ 500
 */
 
-/************************************************************************** ANSWER **********************************************************************************/
+/************************************************************************** RECURSION *******************************************************************************/
 
+class Solution{
+public:
+    int solve(int i, int j, int arr[]) {
+        if(i == j) {
+            return 0;
+        }
+        int ans = 1e9;
+        for(int k = i; k < j; k++) {
+            int steps = arr[i - 1] * arr[k] * arr[j] + solve(i, k, arr) + solve(k + 1, j, arr);
+            ans = min(ans, steps);
+        }
+        return ans;
+    }
+
+    int matrixMultiplication(int N, int arr[])
+    {
+        // code here
+        return solve(1, N - 1, arr);
+    }
+};
+
+/************************************************************************** MEMOIZATION ******************************************************************************/
+
+class Solution{
+public:
+    int solve(int i, int j, int arr[], vector<vector<int>>& dp) {
+        if(i == j) {
+            return 0;
+        }
+        if(dp[i][j] != -1) {
+            return dp[i][j];
+        }
+        int ans = 1e9;
+        for(int k = i; k < j; k++) {
+            int steps = arr[i - 1] * arr[k] * arr[j] + solve(i, k, arr, dp) + solve(k + 1, j, arr, dp);
+            ans = min(ans, steps);
+        }
+        return dp[i][j] = ans;
+    }
+
+    int matrixMultiplication(int N, int arr[])
+    {
+        // code here
+        vector<vector<int>> dp(N, vector<int>(N, -1));
+        return solve(1, N - 1, arr, dp);
+    }
+};
+
+/********************************************************************************** DP *******************************************************************************/
+
+class Solution{
+public:
+    int matrixMultiplication(int N, int arr[])
+    {
+        // code here
+        vector<vector<int>> dp(N, vector<int>(N, 0));
+        for(int i = 0; i < N; i++) {
+            dp[i][i] = 0;
+        }
+        for(int i = N - 1; i >= 1; i--) {
+            for(int j = i + 1; j < N; j++) {
+                int ans = 1e9;
+                for(int k = i; k < j; k++) {
+                    int steps = arr[i - 1] * arr[k] * arr[j] + dp[i][k] + dp[k + 1][j];
+                    ans = min(ans, steps);
+                }
+                dp[i][j] = ans;
+            }
+        }
+        return dp[1][N - 1];
+    }
+};
