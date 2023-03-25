@@ -75,7 +75,7 @@ class Solution{
     bool isMaxHeap(int a[], int n)
     {
         // Your code goes here
-           // checking for the childrem element
+           // checking for the children element
         for(int i = 0; i < n; i++) {
             if(a[i] > a[2*i + 1] && a[i] > a[2*i + 2]) {
                 continue;
