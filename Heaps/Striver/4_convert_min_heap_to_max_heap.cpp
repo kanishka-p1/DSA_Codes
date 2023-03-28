@@ -68,3 +68,35 @@ Constraints:
 
 /******************************************************************************* ANSWER ****************************************************************************/
 
+//User function Template for C++
+
+class Solution{
+public:
+    void heapify(vector<int>& arr, int n, int i) {
+        int lc = 2*i+1;  // left child of ith element
+        int rc = 2*i+2;  // right child of ith element
+        int par = i;   // to store the largest so far
+        
+        // storing the largest
+        if(lc < n && arr[lc] > arr[par]) {
+            par = lc;
+        }
+        if(rc < n && arr[rc] > arr[par]) {
+            par = rc;
+        }
+        
+        // if the largest is ot the parent element swap
+        if(par != i) {
+            swap(arr[i], arr[par]);
+            heapify(arr, n, par);
+        }
+    }
+
+    void convertMinToMaxHeap(vector<int> &arr, int N){
+        // we will start to heapify the elements from bottom to top from the 
+        // last rightmost parent element so as to save n/2 iterations
+        for(int i = (N-2)/2; i >= 0; i--) {
+            heapify(arr, N, i);
+        }
+    }  
+};
