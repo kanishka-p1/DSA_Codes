@@ -28,6 +28,8 @@ Constraints:
 
 /****************************************************************************** ANSWER ******************************************************************************/
 
+
+// approach 1
 class Solution{
 	public:
 	void leftRotate(int arr[], int k, int n) 
@@ -49,4 +51,15 @@ class Solution{
 	       j++;
 	   }
 	} 
+};
+
+// approach 2 
+class Solution{   
+public:
+    void leftRotate(int arr[], int n, int d) {
+        // code here
+        reverse(arr, arr+d);
+        reverse(arr+d, arr+n);
+        reverse(arr, arr+n);
+    }
 };
