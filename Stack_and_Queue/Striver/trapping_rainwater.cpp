@@ -26,6 +26,58 @@ n == height.length
 
 /***************************************************************************** ANSWER *********************************************************************************/
 
+// USING MONOTONIC STACK
+class Solution {
+public:
+    vector<int> ngr(vector<int>& arr, int n) {
+        stack<int> s;
+        vector<int> ans(n);
+        for(int i = n-1; i >= 0; i--){
+            while(!s.empty() && s.top() <= arr[i]){
+                s.pop();
+            }
+            if(!s.empty()){
+                ans[i] = s.top();
+            }
+            if(s.empty() || arr[i] > s.top())
+            s.push(arr[i]);
+        }
+        return ans;
+    }
+
+    vector<int> pgr(vector<int>& arr, int n) {
+        stack<int> s;
+        vector<int> ans(n);
+        for(int i = 0; i < n; i++){
+            while(!s.empty() && s.top() <= arr[i]){
+                s.pop();
+            }
+            if(!s.empty()){
+                ans[i] = s.top();
+            }
+            if(s.empty() || arr[i] > s.top())
+            s.push(arr[i]);
+        }
+        return ans;
+    }
+
+    int trap(vector<int>& height) {
+        int n = height.size();
+        vector<int> right(n);
+        right = ngr(height, n);
+        vector<int> left(n);
+        left = pgr(height, n);
+
+        int ans = 0;
+        for(int i = 0; i < n; i++) {
+            if(min(left[i], right[i]) - height[i] > 0) {
+                ans += (min(left[i], right[i]) - height[i]);
+            }
+        }
+        return ans;
+    }
+};
+
 // OPTIMAL APPROACH
 class Solution {
 public:
