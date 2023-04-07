@@ -54,3 +54,31 @@ class Solution
         return ans;
     }
 };
+
+
+// METHOD 2 BACKTRACKING
+class Solution {
+public:
+    void generate(vector<string> &ans, string str, int open, int close) {
+        if(open == 0 && close == 0) {
+            ans.push_back(str);
+            return;
+        }
+        if(open > 0) {
+            str.push_back('(');
+            generate(ans, str, open - 1, close);
+            str.pop_back();
+        }
+        if(close > 0 && close > open) {
+            str.push_back(')');
+            generate(ans, str, open, close - 1);
+            str.pop_back();
+        }
+    }
+
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        generate(ans, "", n, n);
+        return ans;
+    }
+};
