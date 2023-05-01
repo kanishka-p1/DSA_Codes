@@ -34,15 +34,13 @@ public:
         if(r1 == NULL && r2 == NULL) {
             return true;
         }
-        
         else if(r1 == NULL || r2 == NULL || r1->val != r2->val) {
             return false;
         }
-        
         return helper(r1->left, r2->right) && helper(r1->right, r2->left);
     }
-    
+
     bool isSymmetric(TreeNode* root) {
-        return helper(root->left, root->right);
+        return root == NULL || helper(root->left, root->right);
     }
 };
