@@ -30,7 +30,7 @@ Constraints:
 /************************************************************************ ANSWER ********************************************************************************/
 
 // push the max element to the last by adjacent swapping
-// TC = O(N^2)
+// worst case and average = TC = O(N^2), best = O(N)
 
 class Solution
 {
